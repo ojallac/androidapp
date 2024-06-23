@@ -17,6 +17,7 @@
 package com.example.jetsnack.ui.snackdetail
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,20 +39,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -64,9 +58,12 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import com.example.jetsnack.R
+import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.Snack
 import com.example.jetsnack.model.SnackCollection
 import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.SnackRepo.addToCart
+import com.example.jetsnack.model.SnackRepo.getSnack
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
@@ -102,11 +99,11 @@ fun SnackDetail(
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
         Header()
-        Body(related, scroll)
+        Body(snack,related, scroll)
         Title(snack) { scroll.value }
         Image(snack.imageUrl) { scroll.value }
         Up(upPress)
-        CartBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
+        CartBottomBar(modifier = Modifier.align(Alignment.BottomCenter),snack)
     }
 }
 
@@ -143,6 +140,7 @@ private fun Up(upPress: () -> Unit) {
 
 @Composable
 private fun Body(
+    snack: Snack,
     related: List<SnackCollection>,
     scroll: ScrollState
 ) {
@@ -172,7 +170,8 @@ private fun Body(
                     Spacer(Modifier.height(16.dp))
                     var seeMore by remember { mutableStateOf(true) }
                     Text(
-                        text = stringResource(R.string.detail_placeholder),
+//                        text = stringResource(R.string.detail_placeholder),
+                        text = snack.detail,
                         style = MaterialTheme.typography.body1,
                         color = JetsnackTheme.colors.textHelp,
                         maxLines = if (seeMore) 5 else Int.MAX_VALUE,
@@ -270,7 +269,7 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "热门城市",
+            text = snack.kind,
             style = MaterialTheme.typography.h6,
             color = JetsnackTheme.colors.textPrimary,
             modifier = HzPadding
@@ -336,9 +335,10 @@ private fun CollapsingImageLayout(
         }
     }
 }
-
 @Composable
-private fun CartBottomBar(modifier: Modifier = Modifier) {
+private fun CartBottomBar(modifier: Modifier = Modifier,snack: Snack) {
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     val (count, updateCount) = remember { mutableStateOf(1) }
     JetsnackSurface(modifier) {
         Column {
@@ -350,28 +350,35 @@ private fun CartBottomBar(modifier: Modifier = Modifier) {
                     .then(HzPadding)
                     .heightIn(min = BottomBarHeight)
             ) {
-//                QuantitySelector(
-//                    count = count,
-//                    decreaseItemCount = { if (count > 0) updateCount(count - 1) },
-//                    increaseItemCount = { updateCount(count + 1) }
-//                )
-//                Spacer(Modifier.width(16.dp))
-//                JetsnackButton(
-//                    onClick = { /* todo */ },
-//                    modifier = Modifier.weight(1f)
-//                ) {
-//                    Text(
-//                        text = stringResource(R.string.add_to_cart),
-//                        modifier = Modifier.fillMaxWidth(),
-//                        textAlign = TextAlign.Center,
-//                        maxLines = 1
-//                    )
-//                }
+                QuantitySelector(
+                    count = count,
+                    decreaseItemCount = { if (count > 0) updateCount(count - 1) },
+                    increaseItemCount = { updateCount(count + 1) }
+                )
+                Spacer(Modifier.width(16.dp))
+                JetsnackButton(
+                    onClick = {
+                        val success = addToCart(snack.id, count)
+                        if (success) {
+                            Toast.makeText(context, "添加成功！", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "已经在关注列表中！", Toast.LENGTH_SHORT).show()
+                        }
+                              },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_to_cart),
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        maxLines = 1
+                    )
+                }
+
             }
         }
     }
 }
-
 @Preview("default")
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview("large font", fontScale = 2f)

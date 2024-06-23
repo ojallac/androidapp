@@ -43,6 +43,20 @@ object SnackRepo {
     fun getCategoryFilters() = categoryFilters
     fun getSortDefault() = sortDefault
     fun getLifeStyleFilters() = lifeStyleFilters
+    fun addToCart(snackId: Long, count: Int): Boolean {
+        // 将新的OrderLine对象添加到购物车
+        val snack = getSnack(snackId)  // 获取指定ID的零食
+        val existingOrderLine = cart.find { it.snack.id == snackId }  // 查找购物车中是否已经有这个零食
+
+        if (existingOrderLine == null) {
+            // 如果购物车中没有这个零食，就创建一个新的OrderLine对象并添加到购物车
+            val orderLine = OrderLine(snack, count)
+            cart.add(orderLine)
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /**
@@ -102,7 +116,7 @@ private val related = listOf(
     popular
 )
 
-private val cart = listOf(
+private val cart = mutableListOf<OrderLine>(
     OrderLine(snacks[4], 2),
     OrderLine(snacks[6], 3),
     OrderLine(snacks[8], 1)

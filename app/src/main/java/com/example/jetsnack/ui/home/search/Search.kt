@@ -72,7 +72,7 @@ fun Search(
     onSnackClick: (Long) -> Unit,
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
-    state: SearchState = rememberSearchState()
+    state: SearchState = rememberSearchState(),
 ) {
     JetsnackScaffold(
         bottomBar = {
@@ -103,7 +103,7 @@ fun Search(
                     state.searching = false
                 }
                 when (state.searchDisplay) {
-                    SearchDisplay.Categories -> SearchCategories(state.categories)
+                    SearchDisplay.Categories -> SearchCategories(state.categories,onSnackClick)
                     SearchDisplay.Suggestions -> SearchSuggestions(
                         suggestions = state.suggestions,
                         onSuggestionSelect = { suggestion ->
