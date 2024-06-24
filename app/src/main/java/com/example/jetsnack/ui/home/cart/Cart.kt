@@ -384,7 +384,7 @@ fun CartItem(
         )
         Text(
 //            text = formatPrice(snack.price),
-            text= "热门城市",
+            text= snack.kind,
             style = MaterialTheme.typography.subtitle1,
             color = JetsnackTheme.colors.textPrimary,
             modifier = Modifier.constrainAs(price) {
@@ -397,15 +397,15 @@ fun CartItem(
                 )
             }
         )
-        QuantitySelector(
-            count = orderLine.count,
-            decreaseItemCount = { decreaseItemCount(snack.id) },
-            increaseItemCount = { increaseItemCount(snack.id) },
-            modifier = Modifier.constrainAs(quantity) {
-                baseline.linkTo(price.baseline)
-                end.linkTo(parent.end)
-            }
-        )
+//        QuantitySelector(
+//            count = orderLine.count,
+//            decreaseItemCount = { decreaseItemCount(snack.id) },
+//            increaseItemCount = { increaseItemCount(snack.id) },
+//            modifier = Modifier.constrainAs(quantity) {
+//                baseline.linkTo(price.baseline)
+//                end.linkTo(parent.end)
+//            }
+//        )
         JetsnackDivider(
             Modifier.constrainAs(divider) {
                 linkTo(start = parent.start, end = parent.end)

@@ -51,11 +51,12 @@ import kotlin.math.max
 
 @Composable
 fun SearchCategories(
-    categories: List<SearchCategoryCollection>
+    categories: List<SearchCategoryCollection>,
+    onItemClick: (Long) -> Unit
 ) {
     LazyColumn {
         itemsIndexed(categories) { index, collection ->
-            SearchCategoryCollection(collection, index)
+            SearchCategoryCollection(collection, index, onItemClick)
         }
     }
     Spacer(Modifier.height(8.dp))
@@ -65,6 +66,7 @@ fun SearchCategories(
 private fun SearchCategoryCollection(
     collection: SearchCategoryCollection,
     index: Int,
+    onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -86,7 +88,8 @@ private fun SearchCategoryCollection(
                 SearchCategory(
                     category = category,
                     gradient = gradient,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
+                    onItemClick = onItemClick
                 )
             }
         }
@@ -102,7 +105,8 @@ private const val CategoryTextProportion = 0.55f
 private fun SearchCategory(
     category: SearchCategory,
     gradient: List<Color>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (Long) -> Unit
 ) {
     Layout(
         modifier = modifier
@@ -110,7 +114,7 @@ private fun SearchCategory(
             .shadow(elevation = 3.dp, shape = CategoryShape)
             .clip(CategoryShape)
             .background(Brush.horizontalGradient(gradient))
-            .clickable { /* todo */ },
+            .clickable { onItemClick(category.id) }, // 添加点击事件
         content = {
             Text(
                 text = category.name,
@@ -161,9 +165,11 @@ private fun SearchCategoryPreview() {
         SearchCategory(
             category = SearchCategory(
                 name = "Desserts",
-                imageUrl = ""
+                imageUrl = "",
+                id = 1
             ),
-            gradient = JetsnackTheme.colors.gradient3_2
+            gradient = JetsnackTheme.colors.gradient3_2,
+            onItemClick = {}
         )
     }
 }

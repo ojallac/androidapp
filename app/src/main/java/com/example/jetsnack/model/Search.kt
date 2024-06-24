@@ -44,7 +44,8 @@ data class SearchCategoryCollection(
 @Immutable
 data class SearchCategory(
     val name: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val id: Long,
 )
 
 @Immutable
@@ -65,19 +66,23 @@ private val searchCategoryCollections = listOf(
         categories = listOf(
             SearchCategory(
                 name = "南京市",
-                imageUrl = "https://www.wifi-travel.jp/blog/wp-content/uploads/2021/06/nanjing-tourist-attractions_00.jpg"
+                imageUrl = "https://www.wifi-travel.jp/blog/wp-content/uploads/2021/06/nanjing-tourist-attractions_00.jpg",
+                id = 1L
             ),
             SearchCategory(
                 name = "扬州市",
-                imageUrl = "https://th.bing.com/th/id/R.a645cfe6fea6aae3c9856ef6588e5d30?rik=jT75KSgI1qJNyQ&riu=http%3a%2f%2fy0.ifengimg.com%2f52e0de6343af0d30%2f2013%2f1205%2frdn_52a032d59a34a.jpg&ehk=umSaDJqlq1QE9%2bZTA%2bOqfgYku0NJxlqjsd2zuQFQeO8%3d&risl=&pid=ImgRaw&r=0"
+                imageUrl = "https://th.bing.com/th/id/R.a645cfe6fea6aae3c9856ef6588e5d30?rik=jT75KSgI1qJNyQ&riu=http%3a%2f%2fy0.ifengimg.com%2f52e0de6343af0d30%2f2013%2f1205%2frdn_52a032d59a34a.jpg&ehk=umSaDJqlq1QE9%2bZTA%2bOqfgYku0NJxlqjsd2zuQFQeO8%3d&risl=&pid=ImgRaw&r=0",
+                id = 10L
             ),
             SearchCategory(
                 name = "镇江市",
-                imageUrl = "https://th.bing.com/th/id/R.b3a52a429fd0051d524efc6d43e952da?rik=MD5eVLLFsAF5Cg&riu=http%3a%2f%2fgjzx.jschina.com.cn%2f21660%2f202011%2fW020201125349667141894.jpg&ehk=9DEG02fdQtp3s3CpdxFki3pKgdgVaGtJhC5q%2fqXqK9g%3d&risl=&pid=ImgRaw&r=0"
+                imageUrl = "https://th.bing.com/th/id/R.b3a52a429fd0051d524efc6d43e952da?rik=MD5eVLLFsAF5Cg&riu=http%3a%2f%2fgjzx.jschina.com.cn%2f21660%2f202011%2fW020201125349667141894.jpg&ehk=9DEG02fdQtp3s3CpdxFki3pKgdgVaGtJhC5q%2fqXqK9g%3d&risl=&pid=ImgRaw&r=0",
+                id = 11L
             ),
             SearchCategory(
                 name = "徐州市",
-                imageUrl = "https://tour.jschina.com.cn/lyzx/202003/W020200302315060469663.jpg"
+                imageUrl = "https://tour.jschina.com.cn/lyzx/202003/W020200302315060469663.jpg",
+                id = 3L
             )
         )
     ),
@@ -87,27 +92,34 @@ private val searchCategoryCollections = listOf(
         categories = listOf(
             SearchCategory(
                 name = "鸭血粉丝汤",
-                imageUrl = "https://th.bing.com/th/id/R.1f57714c1587d11b6ca50af785a6986b?rik=IbueQjT%2f0uMqnA&riu=http%3a%2f%2fn.sinaimg.cn%2fsinakd20210427ac%2f334%2fw1160h774%2f20210427%2fba89-kphwumr4539945.jpg&ehk=26N9HyKSSV2egMsx6%2fhsBTB1innWwHJ3linjQSMFh0Q%3d&risl=&pid=ImgRaw&r=0"
+                imageUrl = "https://th.bing.com/th/id/R.1f57714c1587d11b6ca50af785a6986b?rik=IbueQjT%2f0uMqnA&riu=http%3a%2f%2fn.sinaimg.cn%2fsinakd20210427ac%2f334%2fw1160h774%2f20210427%2fba89-kphwumr4539945.jpg&ehk=26N9HyKSSV2egMsx6%2fhsBTB1innWwHJ3linjQSMFh0Q%3d&risl=&pid=ImgRaw&r=0",
+                id = 18L
+
             ),
             SearchCategory(
                 name = "梅花糕",
-                imageUrl = "https://th.bing.com/th/id/R.e96954bbc1d944549cce182d8053fa87?rik=d7fJrZ%2b0SXieVg&riu=http%3a%2f%2fn1.itc.cn%2fimg8%2fwb%2frecom%2f2017%2f03%2f03%2f148852120681342426.JPEG&ehk=lv6tF3%2fCDHcdLHjMQQyYw8e5GXDbnrp7eDUiDF24ZYU%3d&risl=&pid=ImgRaw&r=0"
+                imageUrl = "https://th.bing.com/th/id/R.e96954bbc1d944549cce182d8053fa87?rik=d7fJrZ%2b0SXieVg&riu=http%3a%2f%2fn1.itc.cn%2fimg8%2fwb%2frecom%2f2017%2f03%2f03%2f148852120681342426.JPEG&ehk=lv6tF3%2fCDHcdLHjMQQyYw8e5GXDbnrp7eDUiDF24ZYU%3d&risl=&pid=ImgRaw&r=0",
+                id = 19L
             ),
             SearchCategory(
                 name = "千层油糕",
-                imageUrl = "https://cp1.douguo.com/upload/caiku/1/e/4/yuan_1e0db0b4c6266465f6baea0b2da6aaa4.jpeg"
+                imageUrl = "https://cp1.douguo.com/upload/caiku/1/e/4/yuan_1e0db0b4c6266465f6baea0b2da6aaa4.jpeg",
+                id = 20L
             ),
             SearchCategory(
                 name = "南京咸水鸭",
-                imageUrl = "https://pic1.zhimg.com/80/v2-76abd6184f562a227fec2fd1cb31ee38_720w.webp"
+                imageUrl = "https://pic1.zhimg.com/80/v2-76abd6184f562a227fec2fd1cb31ee38_720w.webp",
+                id = 15L
             ),
             SearchCategory(
                 name = "黄桥烧饼",
-                imageUrl = "https://pic1.zhimg.com/80/v2-4c6e7701fa44f73456413f133f520ad4_720w.webp"
+                imageUrl = "https://pic1.zhimg.com/80/v2-4c6e7701fa44f73456413f133f520ad4_720w.webp",
+                id = 16L
             ),
             SearchCategory(
                 name = "镇江肴肉",
-                imageUrl = "https://pic4.zhimg.com/80/v2-2b581c50b1d80aea6c2469d939d43397_720w.webp"
+                imageUrl = "https://pic4.zhimg.com/80/v2-2b581c50b1d80aea6c2469d939d43397_720w.webp",
+                id = 17L
             )
         )
     )
