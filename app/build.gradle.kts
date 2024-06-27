@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 /*
  * Copyright 2020 The Android Open Source Project
  *
@@ -18,6 +20,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+
 }
 
 android {
@@ -26,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.jetsnack"
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk = 33
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
@@ -81,11 +84,25 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
+    // 选择保留哪个文件或者丢弃所有冲突文件
+    // 或者
+
+
     packaging.resources {
         // Multiple dependency bring these files in. Exclude them to enable
         // our test APK to build (has no effect on our AARs)
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
+        excludes += "META-INF/spring.tooling"
+        excludes += "META-INF/spring.handlers"
+        excludes += "META-INF/spring-configuration-metadata.json"
+        excludes += "META-INF/spring.factories"
+        excludes += "META-INF/license.txt"
+        excludes += "META-INF/DEPENDENCIES"
+        excludes += "META-INF/web-fragment.xml"
+        excludes += "META-INF/additional-spring-configuration-metadata.json"
+        excludes += "META-INF/spring.schemas"
+        excludes += "META-INF/notice.txt"
     }
 }
 
@@ -94,6 +111,9 @@ dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
+
+    implementation("org.springframework.boot:spring-boot-starter-web:2.5.6")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
 
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
@@ -104,6 +124,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraintlayout.compose)
+
+
+
+
+
 
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.foundation)
@@ -116,6 +141,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.coil.kt.compose)
+
+    implementation("com.fasterxml.jackson.core:jackson-core:2.13.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+
 
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.core)
