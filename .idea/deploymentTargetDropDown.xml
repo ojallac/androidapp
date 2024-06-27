@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ProfilePreview">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -13,19 +10,13 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\lenovo\.android\avd\Resizable_Experimental_API_33.avd" />
+                  <value value="E:\AVD\Pixel_5_API_30_2.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-06-24T13:11:27.324589600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-06-27T15:52:12.813160600Z" />
         </State>
-      </entry>
-      <entry key="app_launches()">
-        <State />
-      </entry>
-      <entry key="testMyFunction()">
-        <State />
       </entry>
     </value>
   </component>

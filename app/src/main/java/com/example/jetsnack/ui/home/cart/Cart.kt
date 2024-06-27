@@ -72,6 +72,7 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.SnackCollection
@@ -492,24 +493,24 @@ private fun CheckoutBar(modifier: Modifier = Modifier) {
             JetsnackTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque)
         )
     ) {
-
+        val navController = rememberNavController()
         JetsnackDivider()
         Row {
-            Spacer(Modifier.weight(1f))
-            JetsnackButton(
-                onClick = { /* todo */ },
-                shape = RectangleShape,
-                modifier = Modifier
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
-                    .weight(1f)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.cart_checkout),
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Left,
-                    maxLines = 1
-                )
-            }
+//            Spacer(Modifier.weight(1f))
+//            JetsnackButton(
+//                onClick = { navController.navigate(HomeSections.FEED.route) },
+//                shape = RectangleShape,
+//                modifier = Modifier
+//                    .padding(horizontal = 12.dp, vertical = 8.dp)
+//                    .weight(1f)
+//            ) {
+//                Text(
+//                    text = stringResource(id = R.string.cart_checkout),
+//                    modifier = Modifier.fillMaxWidth(),
+//                    textAlign = TextAlign.Left,
+//                    maxLines = 1
+//                )
+//            }
         }
     }
 }
