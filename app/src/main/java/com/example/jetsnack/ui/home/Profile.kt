@@ -17,37 +17,39 @@
 package com.example.jetsnack.ui.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.jetsnack.R
-import com.example.jetsnack.ui.components.JetsnackScaffold
-import com.example.jetsnack.ui.theme.JetsnackTheme
+import android.os.Build
+import android.os.StrictMode
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.compose.material.TextField
+import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jetsnack.R
+import com.example.jetsnack.ui.components.JetsnackScaffold
+import com.example.jetsnack.ui.theme.JetsnackTheme
+import com.example.jetsnack.ui.utils.BlueLM
+import org.json.JSONObject
 
 data class Message(val content: String, val isUser: Boolean)
 
@@ -69,14 +71,25 @@ class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter
     override fun getItemCount() = messages.size
 }
 
+fun getContentFromJson(jsonString: String): String {
+    val jsonObject = JSONObject(jsonString)
+    val dataObject = jsonObject.getJSONObject("data")
+    return dataObject.getString("content")
+}
+
 @Composable
 fun Profile(
     onNavigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+    StrictMode.setThreadPolicy(policy)
     val messages = mutableListOf<Message>()
     val adapter = MessageAdapter(messages)
     val userInput = remember { mutableStateOf(TextFieldValue()) }
+    val context = LocalContext.current
+
     JetsnackScaffold(
         bottomBar = {
             JetsnackBottomBar(
@@ -95,38 +108,79 @@ fun Profile(
                 .padding(24.dp)
                 .padding(paddingValues)
         ) {
-            AndroidView(
-                factory = { context ->
-                    RecyclerView(context)
-                },
-                update = { view ->
-                    view.layoutManager = LinearLayoutManager(view.context)
-                    view.adapter = adapter
+            Row()
+            {
+                // 假设userInput是一个可观察的状态
+                val userInput = remember { mutableStateOf("") }
+
+                // 使用Box来放置内容在屏幕底部
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.BottomStart
+                ) {
+                    Row(
+
+                        horizontalArrangement = Arrangement.Center,
+                        // 竖直方向下居中,
+                                modifier = Modifier
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min) // 使Row的高度适应内容
+
+                    ) {
+
+                        TextField(
+                            value = userInput.value,
+                            onValueChange = { userInput.value = it },
+                            label = { Text("请输入你的消息", color = Color.White) },
+
+                            modifier = Modifier
+                                .weight(3f) // 分配比例权重
+                                .height(100.dp) // 设置高度
+                                .fillMaxHeight() // 填充高度
+                                .background(Color.LightGray, RoundedCornerShape(15.dp)) // 设置灰色背景和圆角
+                            ,
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = Color.Transparent, // 设置背景透明
+                                cursorColor = Color.Black, // 设置光标颜色
+                                disabledLabelColor = Color.Gray, // 设置禁用标签颜色
+                                focusedIndicatorColor = Color.Transparent, // 设置焦点指示器透明
+                                unfocusedIndicatorColor = Color.Transparent )// 设置非焦点指示器透明
+                        )
+                        Spacer(modifier = Modifier.width(15.dp))
+                        Box(
+                            contentAlignment = Alignment.BottomCenter,
+                            modifier = Modifier
+                                .weight(1f) // 分配比例权重
+                                .height(100.dp)
+
+                        )
+                        {
+                            Button(
+                                onClick = {
+                                    var a = BlueLM.vivogpt()
+                                    a = getContentFromJson(a);
+                                },
+                                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Blue, contentColor = Color.White),
+                                shape = RoundedCornerShape(25.dp),
+
+                                modifier = Modifier
+                                    .height(70.dp)
+                                     // 分配比例权重
+
+                                // 底部偏移
+                            ) {
+                                Text("点击我")
+                            }
+                        }
+
+                    }
                 }
-            )
-            TextField(
-                value = userInput.value,
-                onValueChange = { userInput.value = it },
-                label = { Text("请输入你的消息") }
-            )
-            Image(
-                painterResource(R.drawable.empty_state_search),
-                contentDescription = null
-            )
-            Spacer(Modifier.height(24.dp))
-            Text(
-                text = stringResource(R.string.work_in_progress),
-                style = MaterialTheme.typography.subtitle1,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.grab_beverage),
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+            }
+
+
+
+
+
         }
     }
 }
@@ -141,8 +195,10 @@ fun addMessage(content: String, isUser: Boolean, messages: MutableList<Message>,
 @Preview("large font", fontScale = 2f)
 @Composable
 fun ProfilePreview() {
+
     JetsnackTheme {
         Profile(onNavigateToRoute = { })
     }
 }
+
 
