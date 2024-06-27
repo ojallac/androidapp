@@ -72,6 +72,7 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.SnackCollection
@@ -487,6 +488,7 @@ fun SummaryItem(
 
 @Composable
 private fun CheckoutBar(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
     Column(
         modifier.background(
             JetsnackTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque)
@@ -497,7 +499,7 @@ private fun CheckoutBar(modifier: Modifier = Modifier) {
         Row {
             Spacer(Modifier.weight(1f))
             JetsnackButton(
-                onClick = { /* todo */ },
+                onClick = { navController.navigate(HomeSections.FEED.route) },
                 shape = RectangleShape,
                 modifier = Modifier
                     .padding(horizontal = 12.dp, vertical = 8.dp)
