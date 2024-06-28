@@ -77,6 +77,7 @@ import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.SnackCollection
 import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.cart
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackScaffold
@@ -398,15 +399,15 @@ fun CartItem(
                 )
             }
         )
-//        QuantitySelector(
-//            count = orderLine.count,
-//            decreaseItemCount = { decreaseItemCount(snack.id) },
-//            increaseItemCount = { increaseItemCount(snack.id) },
-//            modifier = Modifier.constrainAs(quantity) {
-//                baseline.linkTo(price.baseline)
-//                end.linkTo(parent.end)
-//            }
-//        )
+        QuantitySelector(
+            count = orderLine.count,
+            decreaseItemCount = { decreaseItemCount(snack.id) ;cart.sortByDescending { it.count };},
+            increaseItemCount = { increaseItemCount(snack.id) ;cart.sortByDescending { it.count };},
+            modifier = Modifier.constrainAs(quantity) {
+                baseline.linkTo(price.baseline)
+                end.linkTo(parent.end)
+            }
+        )
         JetsnackDivider(
             Modifier.constrainAs(divider) {
                 linkTo(start = parent.start, end = parent.end)

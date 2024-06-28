@@ -13,7 +13,7 @@
   the License.
   -->
 <resources>
-    <string name="app_name">Jetsnack</string>
+    <string name="app_name">文旅江苏</string>
     <string name="label_back">返回上一页</string>
 
     <!-- Home Tabs -->
