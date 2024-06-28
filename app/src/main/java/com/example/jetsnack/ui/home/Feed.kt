@@ -113,7 +113,7 @@ private fun SnackCollectionList(
                         WindowInsets.statusBars.add(WindowInsets(top = 56.dp))
                     )
                 )
-                FilterBar(filters, onShowFilters = { filtersVisible = true })
+//                FilterBar(filters, onShowFilters = { filtersVisible = true })
             }
             itemsIndexed(snackCollections) { index, snackCollection ->
                 if (index > 0) {

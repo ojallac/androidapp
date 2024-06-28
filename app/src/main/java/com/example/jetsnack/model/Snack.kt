@@ -234,7 +234,7 @@ val snacks = listOf(
     Snack(
         id = 19L,
         name = "梅花糕",
-        imageUrl = "https://th.bing.com/th/id/R.e96954bbc1d944549cce182d8053fa87?rik=d7fJrZ%2b0SXieVg&riu=http%3a%2f%2fn1.itc.cn%2fimg8%2fwb%2frecom%2f2017%2f03%2f03%2f148852120681342426.JPEG&ehk=lv6tF3%2fCDHcdLHjMQQyYw8e5GXDbnrp7eDUiDF24ZYU%3d&risl=&pid=ImgRaw&r=0",
+        imageUrl = "https://th.bing.com/th/id/R.91f85612b9d3f217ef7885b036472a93?rik=NMi75HKwG%2fO5hA&riu=http%3a%2f%2fchinasilkmuseum.com%2fuploadfiles%2f2019%2f11%2f20191107165625605.jpg&ehk=3EMaf%2biIWnDVvhibjoMCxxU8CtxMILGAZiNi0qxPDKU%3d&risl=&pid=ImgRaw&r=0",
         detail = "梅花糕是一种以糯米粉、红豆等为主要原料制作的传统糕点。其形状如梅花，质地绵软，口感香甜，营养丰富。梅花糕在南京地区有着悠久的历史，是节庆、喜庆时必备的美食之一，也是南京文化的重要组成部分。",
         kind = "知名小吃"
     ),
@@ -242,7 +242,7 @@ val snacks = listOf(
     Snack(
         id = 20L,
         name = "千层油糕",
-        imageUrl = "https://cp1.douguo.com/upload/caiku/1/e/4/yuan_1e0db0b4c6266465f6baea0b2da6aaa4.jpeg",
+        imageUrl = "https://th.bing.com/th/id/R.f36b57a544df85f1ddacc52999803518?rik=xIykjsxjOvXZ2A&riu=http%3a%2f%2fi3.meishichina.com%2fattachment%2f201303%2f12%2f501370_1363073578C2EX.jpg&ehk=YnV4QJzTt5kflXFwy7V%2fVRS821Vxjlinv4qbV0wMOYA%3d&risl=&pid=ImgRaw&r=0",
         detail = "千层油糕是江苏地方特色小吃之一，以其多层次、酥软可口而著称。主要原料为面粉、猪油和糖等，制作时通过多次摊叠、揉搓、拉扯等工序，使得糕体层次分明，口感丰富。千层油糕在南京及周边地区广受欢迎，是一道具有代表性的地方美食。",
         kind = "知名小吃"
     ),

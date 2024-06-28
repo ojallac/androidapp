@@ -22,7 +22,7 @@ import androidx.compose.runtime.Immutable
 data class SnackCollection(
     val id: Long,
     val name: String,
-    val snacks: List<Snack>,
+    var snacks: List<Snack>,
     val type: CollectionType = CollectionType.Normal
 )
 
@@ -44,25 +44,29 @@ object SnackRepo {
     fun getSortDefault() = sortDefault
     fun getLifeStyleFilters() = lifeStyleFilters
     fun addToCart(snackId: Long, count: Int): Boolean {
-        // 将新的OrderLine对象添加到购物车
         val snack = getSnack(snackId)  // 获取指定ID的零食
         val existingOrderLine = cart.find { it.snack.id == snackId }  // 查找购物车中是否已经有这个零食
-
+        cart.sortByDescending { it.count }
         if (existingOrderLine == null) {
-            // 如果购物车中没有这个零食，就创建一个新的OrderLine对象并添加到购物车
             val orderLine = OrderLine(snack, count)
             cart.add(orderLine)
+            cart.sortByDescending { it.count }
             return true;
         } else {
             return false;
         }
+
     }
 }
-
+var randomSnacks = snacks.shuffled().take(8)
 /**
  * Static data
  */
-
+fun randomproduct()
+{
+    randomSnacks = snacks.shuffled().take(8)
+    inspiredByCart.snacks = randomSnacks
+}
 private val tastyTreats = SnackCollection(
     id = 1L,
     name = "热门城市",
@@ -100,7 +104,8 @@ private val also = tastyTreats.copy(
 //
 private val inspiredByCart = tastyTreats.copy(
     id = 7L,
-    name = "猜你喜欢"
+    name = "猜你喜欢",
+    snacks = randomSnacks
 )
 
 private val snackCollections = listOf(
@@ -116,7 +121,7 @@ private val related = listOf(
     popular
 )
 
-private val cart = mutableListOf<OrderLine>(
+val cart = mutableListOf<OrderLine>(
     OrderLine(snacks[4], 2),
     OrderLine(snacks[6], 3),
     OrderLine(snacks[8], 1)

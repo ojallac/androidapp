@@ -58,10 +58,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import com.example.jetsnack.R
-import com.example.jetsnack.model.OrderLine
-import com.example.jetsnack.model.Snack
-import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.*
 import com.example.jetsnack.model.SnackRepo.addToCart
 import com.example.jetsnack.model.SnackRepo.getSnack
 import com.example.jetsnack.ui.components.JetsnackButton
@@ -358,6 +355,8 @@ private fun CartBottomBar(modifier: Modifier = Modifier,snack: Snack) {
                 Spacer(Modifier.width(16.dp))
                 JetsnackButton(
                     onClick = {
+                        randomproduce()
+                        randomproduct()
                         val success = addToCart(snack.id, count)
                         if (success) {
                             Toast.makeText(context, "添加成功！", Toast.LENGTH_SHORT).show()

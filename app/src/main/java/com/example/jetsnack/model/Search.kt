@@ -32,13 +32,34 @@ object SearchRepo {
         delay(200L) // simulate an I/O delay
         snacks.filter { it.name.contains(query, ignoreCase = true) }
     }
-}
 
+}
+fun randomproduce()
+{
+    val randomNumbers = mutableSetOf<Int>()
+    while (randomNumbers.size < 4) {
+        val randomNumber = (1..13).random()
+        randomNumbers.add(randomNumber)
+    }
+    searchCategoryCollections[0].categories.clear()
+    for (element in randomNumbers) {
+        searchCategoryCollections[0].categories.add(SearchCategory(snacks[element-1].name,snacks[element-1].imageUrl,snacks[element-1].id))
+    }
+    val randomNumbers1 = mutableSetOf<Int>()
+    while (randomNumbers1.size < 6) {
+        val randomNumber = (15..34).random()
+        randomNumbers1.add(randomNumber)
+    }
+    searchCategoryCollections[1].categories.clear()
+    for (element in randomNumbers1) {
+        searchCategoryCollections[1].categories.add(SearchCategory(snacks[element-1].name,snacks[element-1].imageUrl,snacks[element-1].id))
+    }
+}
 @Immutable
 data class SearchCategoryCollection(
     val id: Long,
     val name: String,
-    val categories: List<SearchCategory>
+    val categories: MutableList<SearchCategory>
 )
 
 @Immutable
@@ -63,7 +84,7 @@ private val searchCategoryCollections = listOf(
     SearchCategoryCollection(
         id = 0L,
         name = "推荐城市",
-        categories = listOf(
+        categories = mutableListOf(
             SearchCategory(
                 name = "南京市",
                 imageUrl = "https://www.wifi-travel.jp/blog/wp-content/uploads/2021/06/nanjing-tourist-attractions_00.jpg",
@@ -88,13 +109,12 @@ private val searchCategoryCollections = listOf(
     ),
     SearchCategoryCollection(
         id = 1L,
-        name = "推荐美食",
-        categories = listOf(
+        name = "推荐美食及景点",
+        categories = mutableListOf(
             SearchCategory(
                 name = "鸭血粉丝汤",
                 imageUrl = "https://th.bing.com/th/id/R.1f57714c1587d11b6ca50af785a6986b?rik=IbueQjT%2f0uMqnA&riu=http%3a%2f%2fn.sinaimg.cn%2fsinakd20210427ac%2f334%2fw1160h774%2f20210427%2fba89-kphwumr4539945.jpg&ehk=26N9HyKSSV2egMsx6%2fhsBTB1innWwHJ3linjQSMFh0Q%3d&risl=&pid=ImgRaw&r=0",
                 id = 18L
-
             ),
             SearchCategory(
                 name = "梅花糕",
@@ -103,7 +123,7 @@ private val searchCategoryCollections = listOf(
             ),
             SearchCategory(
                 name = "千层油糕",
-                imageUrl = "https://cp1.douguo.com/upload/caiku/1/e/4/yuan_1e0db0b4c6266465f6baea0b2da6aaa4.jpeg",
+                imageUrl = "https://th.bing.com/th/id/R.f36b57a544df85f1ddacc52999803518?rik=xIykjsxjOvXZ2A&riu=http%3a%2f%2fi3.meishichina.com%2fattachment%2f201303%2f12%2f501370_1363073578C2EX.jpg&ehk=YnV4QJzTt5kflXFwy7V%2fVRS821Vxjlinv4qbV0wMOYA%3d&risl=&pid=ImgRaw&r=0",
                 id = 20L
             ),
             SearchCategory(
