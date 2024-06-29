@@ -202,7 +202,7 @@ private fun Body(
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = stringResource(R.string.ingredients_list),
+                        text = snack.keyword,
                         style = MaterialTheme.typography.body1,
                         color = JetsnackTheme.colors.textHelp,
                         modifier = HzPadding
