@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BlueLM {
-    public static String vivogpt() throws Exception {
+    public static String vivogpt(String prompt) throws Exception {
 
         String appId = "3038246567";
         String appKey = "zCywVotSxerdFKhp";
@@ -28,7 +28,7 @@ public class BlueLM {
 
         //构建请求体
         Map<String, String> data = new HashMap<>();
-        data.put("prompt", "写一首春天的诗");
+        data.put("prompt", prompt);
         data.put("model", "vivo-BlueLM-TB");
         UUID sessionId = UUID.randomUUID();
         data.put("sessionId", sessionId.toString());
